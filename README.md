@@ -1,2 +1,2 @@
 # RL-Experiments
-A collection of hands-on Reinforcement Learning experiments covering core concepts — grid-world environments, bandit algorithms, MDP, policy iteration, dynamic programming, Monte Carlo control, SARSA, and Q-Learning. Implemented in Python using NumPy, OpenAI Gym, and Matplotlib.
+Hey! This repo contains my Reinforcement Learning experiments from college — covering everything from grid-worlds and bandit algorithms to MDP, policy iteration, Monte Carlo, SARSA, and Q-Learning. All coded up in Python using NumPy, OpenAI Gym, and Matplotlib. Feel free to explore!
