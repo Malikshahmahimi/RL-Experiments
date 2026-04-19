@@ -1,6 +1,6 @@
 # 🤖 RL Experiments — BE AIDS Sem 8
 
-Hey! This repo contains my Reinforcement Learning experiments from college — covering everything from grid-worlds and bandit algorithms to MDP, policy iteration, Monte Carlo, SARSA, and Q-Learning. All coded up in Python using NumPy, OpenAI Gym, and Matplotlib. Feel free to explore!
+Hey! This repo contains my Reinforcement Learning experiments from college — covering everything from grid-worlds and bandit algorithms to MDP, policy iteration, Monte Carlo, SARSA, Q-Learning, function approximation, and deep Q-networks. All coded up in Python using NumPy, OpenAI Gym, PyTorch, and Matplotlib. Feel free to explore!
 
 ---
 
@@ -11,6 +11,8 @@ Hey! This repo contains my Reinforcement Learning experiments from college — c
 - [Exp 4 — Dynamic Programming on FrozenLake](#exp-4--dynamic-programming-on-frozenlake)
 - [Exp 5 — Monte Carlo Control and TD Learning](#exp-5--monte-carlo-control-and-td-learning)
 - [Exp 6 — Exploration Strategies in Multi-Armed Bandit](#exp-6--exploration-strategies-in-multi-armed-bandit)
+- [Exp 7 — Function Approximation in RL](#exp-7--function-approximation-in-rl)
+- [Exp 8 — Deep Q-Network (DQN) on Atari Pong](#exp-8--deep-q-network-dqn-on-atari-pong)
 
 ---
 
@@ -86,4 +88,33 @@ UCB1 outperformed Epsilon-Greedy consistently across all phases. UCB1 stabilized
 
 ---
 
-> 📁 All experiments are implemented in Python (Google Colab) | Libraries: `NumPy` `OpenAI Gym` `Matplotlib`
+## Exp 7 — Function Approximation in RL
+
+**🎯 Objective:** Use function approximation techniques (linear regression) to approximate value functions in a reinforcement learning problem, instead of maintaining a lookup table.
+
+**🔧 What was done:**
+A 5-state Random Walk environment (states A–E with terminal states at both ends) was set up. States were encoded using one-hot feature vectors, and a linear value function `V(s) = w · x(s)` was trained using **TD(0) with function approximation** over 100 episodes. The learned weights were used to estimate state values, which were then compared against the analytically known true values.
+
+**✅ Conclusion:**
+The linear function approximator successfully converged toward the true value function after training. The estimated values closely tracked the true values (ranging from 1/6 to 5/6), demonstrating that even a simple linear model with TD learning can generalize across states. This experiment highlights how **function approximation scales RL to problems where tabular methods are impractical**.
+
+---
+
+## Exp 8 — Deep Q-Network (DQN) on Atari Pong
+
+**🎯 Objective:** Implement a Deep Q-Network (DQN) to train an agent to play Atari Pong using raw pixel inputs.
+
+**🔧 What was done:**
+The full DQN pipeline was built using **PyTorch** and **OpenAI Gymnasium's ALE/Pong-v5** environment. This included:
+- A **CNN-based DQN** with 3 convolutional layers + 2 fully connected layers to process 84×84 grayscale frames
+- A **Replay Buffer** (capacity: 100,000) for experience replay to break temporal correlations
+- Separate **policy network** and **target network**, with periodic target updates every 10,000 steps
+- **Epsilon-greedy action selection** with exponential decay (ε: 1.0 → 0.01) for exploration
+- Training with **Adam optimizer** (lr=1e-4), batch size 32, and discount factor γ=0.99
+
+**✅ Conclusion:**
+The DQN architecture successfully set up end-to-end training on a raw pixel-based Atari environment. The use of experience replay and a separate target network — the two key innovations of DQN — stabilize training by reducing correlation between consecutive updates and preventing oscillating Q-value targets. This experiment demonstrates how **deep learning combined with RL enables agents to learn directly from high-dimensional sensory inputs**, forming the foundation for modern deep RL systems.
+
+---
+
+> 📁 All experiments are implemented in Python (Google Colab) | Libraries: `NumPy` `OpenAI Gym` `PyTorch` `Matplotlib`
